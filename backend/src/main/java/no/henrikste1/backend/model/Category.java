@@ -5,20 +5,23 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "Category")
 public class Category {
+
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Long categoryId;
 
-    private Long categoryId; // Primary key
-
+    @Column(nullable = false)
     private String name;
 
     private String description;
 
-    /*
-    private String userId; // Foreign key
+    @OneToMany
+    @JoinColumn
+    private Product product;
 
-    private Long productId; // Foreign key
-    **/
+    @ManyToOne
+    @JoinColumn
+    private User user;
 
     // Getters and setters
 
