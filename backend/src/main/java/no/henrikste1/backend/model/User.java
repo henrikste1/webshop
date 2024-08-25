@@ -28,4 +28,44 @@ public class User {
     /*
     private String firebaseUserId;
     **/
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Integer getPermissionLevel() {
+        return permissionLevel;
+    }
+
+    public void setPermissionLevel(Integer permissionLevel) {
+        this.permissionLevel = permissionLevel;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
