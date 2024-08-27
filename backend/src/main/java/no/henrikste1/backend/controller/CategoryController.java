@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(path = "/category")
 public class CategoryController {
@@ -19,13 +21,13 @@ public class CategoryController {
     public @ResponseBody String addNewCategory (
             @RequestParam String name,
             @RequestParam String description,
-            @RequestParam Product product,
+            @RequestParam List<Product> products,
             @RequestParam User user ) {
 
         Category c = new Category();
         c.setName(name);
         c.setDescription(description);
-        c.setProduct(product);
+        c.setProducts(products);
         c.setUser(user);
         categoryRepository.save(c);
         return "Saved";

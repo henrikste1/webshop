@@ -2,6 +2,8 @@ package no.henrikste1.backend.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Category")
 public class Category {
@@ -17,7 +19,7 @@ public class Category {
 
     @OneToMany
     @JoinColumn
-    private Product product;
+    private List<Product> products;
 
     @ManyToOne
     @JoinColumn
@@ -47,12 +49,12 @@ public class Category {
         this.description = description;
     }
 
-    public Product getProduct() {
-        return product;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public User getUser() {

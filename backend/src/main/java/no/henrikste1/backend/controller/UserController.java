@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping(path = "/user")
 public class UserController {
@@ -19,14 +21,14 @@ public class UserController {
     public @ResponseBody String addNewUser (
             @RequestParam String username,
             @RequestParam Integer permissionLevel,
-            @RequestParam Product product,
-            @RequestParam Category category ) {
+            @RequestParam List<Product> products,
+            @RequestParam List<Category> categories ) {
 
         User u = new User();
         u.setUsername(username);
         u.setPermissionLevel(permissionLevel);
-        u.setProduct(product);
-        u.setCategory(category);
+        u.setProducts(products);
+        u.setCategories(categories);
         userRepository.save(u);
         return "Saved";
     }

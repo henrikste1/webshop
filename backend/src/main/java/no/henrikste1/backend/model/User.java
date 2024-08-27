@@ -3,6 +3,8 @@ package no.henrikste1.backend.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "User")
 public class User {
@@ -19,11 +21,11 @@ public class User {
 
     @OneToMany
     @JoinColumn
-    private Product product;
+    private List<Product> products;
 
     @OneToMany
     @JoinColumn
-    private Category category;
+    private List<Category> categories;
 
     /*
     private String firebaseUserId;
@@ -53,19 +55,19 @@ public class User {
         this.permissionLevel = permissionLevel;
     }
 
-    public Product getProduct() {
-        return product;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
-    public Category getCategory() {
-        return category;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 }
