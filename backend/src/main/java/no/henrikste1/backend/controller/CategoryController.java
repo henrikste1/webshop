@@ -1,6 +1,5 @@
 package no.henrikste1.backend.controller;
 
-
 import no.henrikste1.backend.model.Category;
 import no.henrikste1.backend.model.Product;
 import no.henrikste1.backend.model.User;
@@ -36,6 +35,4 @@ public class CategoryController {
     public @ResponseBody Iterable<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
-
-
 }
