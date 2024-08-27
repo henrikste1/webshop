@@ -20,15 +20,11 @@ public class UserController {
     @PostMapping(path = "/add")
     public @ResponseBody String addNewUser (
             @RequestParam String username,
-            @RequestParam Integer permissionLevel,
-            @RequestParam List<Product> products,
-            @RequestParam List<Category> categories ) {
+            @RequestParam Integer permissionLevel ) {
 
         User u = new User();
         u.setUsername(username);
         u.setPermissionLevel(permissionLevel);
-        u.setProducts(products);
-        u.setCategories(categories);
         userRepository.save(u);
         return "Saved";
     }

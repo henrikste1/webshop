@@ -16,7 +16,6 @@ public class User {
     @Column(nullable = false)
     private String username;
 
-    @Column(nullable = false)
     private Integer permissionLevel = 1;
 
     @OneToMany

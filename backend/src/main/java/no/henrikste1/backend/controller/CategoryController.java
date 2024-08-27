@@ -21,13 +21,11 @@ public class CategoryController {
     public @ResponseBody String addNewCategory (
             @RequestParam String name,
             @RequestParam String description,
-            @RequestParam List<Product> products,
             @RequestParam User user ) {
 
         Category c = new Category();
         c.setName(name);
         c.setDescription(description);
-        c.setProducts(products);
         c.setUser(user);
         categoryRepository.save(c);
         return "Saved";
