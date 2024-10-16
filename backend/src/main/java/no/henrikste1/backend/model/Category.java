@@ -17,7 +17,7 @@ public class Category {
 
     private String description;
 
-    @OneToMany
+    @OneToMany(mappedBy = "category")
     @JoinColumn
     private List<Product> products;
 

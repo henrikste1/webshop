@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 @Controller
 @RequestMapping(path = "/product")
 public class ProductController {
@@ -18,7 +20,7 @@ public class ProductController {
     @PostMapping(path = "/add")
     public @ResponseBody String addNewProduct (
             @RequestParam String name,
-            @RequestParam String price,
+            @RequestParam BigDecimal price,
             @RequestParam String picture,
             @RequestParam String description,
             @RequestParam Category category,

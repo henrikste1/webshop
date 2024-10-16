@@ -18,11 +18,11 @@ public class User {
 
     private Integer permissionLevel = 1;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     @JoinColumn
     private List<Product> products;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     @JoinColumn
     private List<Category> categories;
 
