@@ -10,7 +10,7 @@ class ProductCard extends React.Component {
         <CardImg top width="100%" src={product.picture} alt={product.name} />
         <CardBody>
           <CardTitle tag="h5">{product.name}</CardTitle>
-          <CardText>Price: ${product.price}</CardText>
+          <CardText>Price: {product.price},-</CardText>
           <CardText>{product.description}</CardText>
         </CardBody>
       </Card>
