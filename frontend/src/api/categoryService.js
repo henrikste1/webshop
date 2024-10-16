@@ -16,7 +16,7 @@ export const addCategory = async (category) => {
       params: {
         name: category.name,
         description: category.description,
-        user: category.user
+        user: category.userID
       }
     });
     return response.data;

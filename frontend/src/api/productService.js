@@ -18,8 +18,8 @@ export const addProduct = async (product) => {
         price: product.price,
         picture: product.picture,
         description: product.description,
-        category: product.category, 
-        user: product.user 
+        category: product.categoryID, 
+        user: product.userID
       }
     });
     return response.data;
@@ -28,5 +28,3 @@ export const addProduct = async (product) => {
     throw error;
   }
 };
-
-export default productService;
