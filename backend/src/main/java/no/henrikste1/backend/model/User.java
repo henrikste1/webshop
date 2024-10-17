@@ -3,6 +3,7 @@ package no.henrikste1.backend.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,13 +19,11 @@ public class User {
 
     private Integer permissionLevel = 1;
 
-    @OneToMany(mappedBy = "user")
-    @JoinColumn
-    private List<Product> products;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    @JoinColumn
-    private List<Category> categories;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Category> categories = new ArrayList<>();
 
     /*
     private String firebaseUserId;

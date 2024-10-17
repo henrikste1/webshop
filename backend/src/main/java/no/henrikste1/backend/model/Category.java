@@ -1,7 +1,9 @@
 package no.henrikste1.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,12 +19,12 @@ public class Category {
 
     private String description;
 
-    @OneToMany(mappedBy = "category")
-    @JoinColumn
-    private List<Product> products;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Product> products = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     public Long getCategoryId() {

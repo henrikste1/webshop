@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/user")
@@ -33,4 +34,39 @@ public class UserController {
     public @ResponseBody Iterable<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    @GetMapping(path = "/{id}")
+    public @ResponseBody Optional<User> getUserById(@PathVariable Long id) {
+        return userRepository.findById(id);
+    }
+
+    @PutMapping(path = "/update/{id}")
+    public @ResponseBody String updateUser(
+            @PathVariable Long id,
+            @RequestParam String username,
+            @RequestParam Integer permissionLevel) {
+
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User u = optionalUser.get();
+            u.setUsername(username);
+            u.setPermissionLevel(permissionLevel);
+            userRepository.save(u);
+            return "User updated with ID: " + id;
+        } else {
+            return "User not found with ID: " + id;
+        }
+    }
+
+    @DeleteMapping(path = "/delete/{id}")
+    public @ResponseBody String deleteUser(@PathVariable Long id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return "User deleted with ID: " + id;
+        } else {
+            return "User not found with ID: " + id;
+        }
+    }
 }
+
+
