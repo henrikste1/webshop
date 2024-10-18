@@ -55,7 +55,7 @@ class Products extends React.Component {
         <Row>
           {
             products.map((product) => (
-              <Col sm="4" key={product.productId}> 
+              <Col sm="3" key={product.productId}> 
                 <ProductCard product={product} />
               </Col>
             ))
