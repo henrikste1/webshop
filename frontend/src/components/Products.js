@@ -7,7 +7,14 @@ class ProductCard extends React.Component {
     const { product } = this.props;
     return (
       <Card>
-        <CardImg top width="100%" src={product.picture} alt={product.name} />
+        <CardBody>
+          <img
+          alt={product.name}
+          src={product.picture}
+          width="200"
+          height="200"
+          />
+        </CardBody>
         <CardBody>
           <CardTitle tag="h5">{product.name}</CardTitle>
           <CardText>Price: {product.price},-</CardText>
