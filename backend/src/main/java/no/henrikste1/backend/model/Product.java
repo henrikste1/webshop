@@ -1,5 +1,6 @@
 package no.henrikste1.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -23,10 +24,12 @@ public class Product {
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnore
     private Category category;
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnore
     private User user;
 
     public Long getProductId() {
