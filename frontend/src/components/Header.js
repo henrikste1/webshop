@@ -20,7 +20,7 @@ class Header extends React.Component {
               src={logo}
               style={{
                 height: 40,
-                width: 40,
+                width: 50,
               }}
             />
             Webshop
