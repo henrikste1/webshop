@@ -15,7 +15,13 @@ public class User {
     private Long userId;
 
     @Column(nullable = false)
-    private String username;
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String firebaseId;
 
     private Integer permissionLevel = 1;
 
@@ -25,9 +31,13 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Category> categories = new ArrayList<>();
 
-    /*
-    private String firebaseUserId;
-    **/
+    public String getFirebaseId() {
+        return firebaseId;
+    }
+
+    public void setFirebaseId(String firebaseId) {
+        this.firebaseId = firebaseId;
+    }
 
     public Long getUserId() {
         return userId;
@@ -37,12 +47,20 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Integer getPermissionLevel() {
@@ -53,19 +71,19 @@ public class User {
         this.permissionLevel = permissionLevel;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public List<Product> getProducts() {
         return products;
     }
 
     public void setProducts(List<Product> products) {
         this.products = products;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
     }
 }

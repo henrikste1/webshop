@@ -1,14 +1,14 @@
 package no.henrikste1.backend.controller;
 
-import no.henrikste1.backend.model.Category;
-import no.henrikste1.backend.model.Product;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.UserRecord;
 import no.henrikste1.backend.model.User;
 import no.henrikste1.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import no.henrikste1.backend.service.FirebaseUserService;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -17,14 +17,21 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    private FirebaseUserService firebaseUserService;
 
     @PostMapping(path = "/add")
     public @ResponseBody String addNewUser (
-            @RequestParam String username,
-            @RequestParam Integer permissionLevel ) {
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam String firebaseId,
+            @RequestParam Integer permissionLevel ) throws FirebaseAuthException {
+
+        UserRecord firebaseUser = firebaseUserService.createUser(email, password);
 
         User u = new User();
-        u.setUsername(username);
+        u.setEmail(email);
+        u.setPassword(password);
+        u.setFirebaseId(firebaseUser.getUid());
         u.setPermissionLevel(permissionLevel);
         userRepository.save(u);
         return "Saved";
@@ -43,13 +50,11 @@ public class UserController {
     @PutMapping(path = "/update/{id}")
     public @ResponseBody String updateUser(
             @PathVariable Long id,
-            @RequestParam String username,
             @RequestParam Integer permissionLevel) {
 
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             User u = optionalUser.get();
-            u.setUsername(username);
             u.setPermissionLevel(permissionLevel);
             userRepository.save(u);
             return "User updated with ID: " + id;
