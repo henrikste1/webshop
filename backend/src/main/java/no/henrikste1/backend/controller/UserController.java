@@ -17,14 +17,14 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
     private FirebaseUserService firebaseUserService;
 
     @PostMapping(path = "/add")
     public @ResponseBody String addNewUser (
             @RequestParam String email,
-            @RequestParam String password,
-            @RequestParam String firebaseId,
-            @RequestParam Integer permissionLevel ) throws FirebaseAuthException {
+            @RequestParam String password) throws FirebaseAuthException {
 
         UserRecord firebaseUser = firebaseUserService.createUser(email, password);
 
@@ -32,7 +32,6 @@ public class UserController {
         u.setEmail(email);
         u.setPassword(password);
         u.setFirebaseId(firebaseUser.getUid());
-        u.setPermissionLevel(permissionLevel);
         userRepository.save(u);
         return "Saved";
     }
