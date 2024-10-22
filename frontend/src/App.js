@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header';
 import Products from './components/Products'
@@ -8,7 +7,7 @@ function App() {
     <div className="App">
       <Header />
       <div>
-      <h1>Product List</h1>
+      <h1>Products</h1>
       <Products />
       </div>
     </div>

@@ -1,10 +1,14 @@
 package no.henrikste1.backend.controller;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.UserRecord;
+import no.henrikste1.backend.dto.LoginRequest;
 import no.henrikste1.backend.model.User;
 import no.henrikste1.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import no.henrikste1.backend.service.FirebaseUserService;
@@ -46,29 +50,20 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-    @PutMapping(path = "/update/{id}")
-    public @ResponseBody String updateUser(
-            @PathVariable Long id,
-            @RequestParam Integer permissionLevel) {
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            // Attempt to retrieve the user by email
+            UserRecord userRecord = FirebaseAuth.getInstance().getUserByEmail(loginRequest.getEmail());
 
-        Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isPresent()) {
-            User u = optionalUser.get();
-            u.setPermissionLevel(permissionLevel);
-            userRepository.save(u);
-            return "User updated with ID: " + id;
-        } else {
-            return "User not found with ID: " + id;
-        }
-    }
+            // After successful retrieval, generate a custom token for the user
+            String customToken = FirebaseAuth.getInstance().createCustomToken(userRecord.getUid());
 
-    @DeleteMapping(path = "/delete/{id}")
-    public @ResponseBody String deleteUser(@PathVariable Long id) {
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
-            return "User deleted with ID: " + id;
-        } else {
-            return "User not found with ID: " + id;
+            // Return the custom token to be used by the client for Firebase Auth
+            return ResponseEntity.ok().body(customToken);
+        } catch (FirebaseAuthException e) {
+            // Handle exceptions such as user not found or token generation failure
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login failed: " + e.getMessage());
         }
     }
 }
