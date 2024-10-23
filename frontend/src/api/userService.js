@@ -14,8 +14,8 @@ export const addUser = async (user) => {
   try {
     const response = await axios.post('/user/add', null, {
       params: {
-        username: user.username,
-        permissionLevel: user.permissionLevel || 1 // Default to 1 if not provided
+        email: user.username,
+        password: user.password
       }
     });
     return response.data;
@@ -23,6 +23,25 @@ export const addUser = async (user) => {
     console.error('Error adding user:', error);
     throw error;
   }
+};
+
+export const loginUser = async (email, password) => {
+  try {
+    const response = await axios.post('/user/login', {
+      email,
+      password
+    });
+    return response.data; 
+  } catch (error) {
+    console.error('Error logging in:', error);
+    throw error;
+  }
+};
+
+const userService = {
+  getAllUsers,
+  addUser,
+  loginUser
 };
 
 export default userService;
